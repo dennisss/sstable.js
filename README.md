@@ -24,10 +24,20 @@ Install using `npm install sstab`
 
 Generate an sst file from some existing data
 > var sst = require('sstab')
-> var fs = require('fs')
 >
+> var fs = require('fs')
+> 
 > var buf = sst.build({ a: '1', b: '2', c: '3', d: '4' }) // Serialize some object
+>
 > fs.writeFileSync('data.sst', buf)
 
 Load in client
-> var sst 
+> var sst = require('sstab);
+>
+> var fs = require('fs');
+>
+> var buf = fs.readFileSync('data.sst');
+>
+> var tab = sst.load(buf);
+>
+> tab.get('b') // This will equal '2'

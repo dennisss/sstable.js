@@ -1,6 +1,6 @@
 {
   "name": "sstab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast, compact, and memory efficient way to load a lot of key-value pairs",
   "main": "index.js",
   "scripts": {

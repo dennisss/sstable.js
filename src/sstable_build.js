@@ -1,6 +1,8 @@
 'use strict';
 
 
+var VERSION = 1;
+
 /**
  * Serializes an object into a buffer that can be loaded quickly later with sst.load
  * 
@@ -129,7 +131,7 @@ function SSTable_build(obj, options) {
 	var bufBins = Buffer.concat(bins);
 	var bufStrings = Buffer.concat(strings);
 
-	var sstBuf = Buffer.concat([ bufBinsLen, bufBins, bufStrings ]);
+	var sstBuf = Buffer.concat([ Buffer.from([VERSION]), bufBinsLen, bufBins, bufStrings ]);
 
 	return sstBuf;
 }

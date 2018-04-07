@@ -13,9 +13,6 @@ describe('sstable', function() {
 
 		assert(buf instanceof Buffer);
 
-		console.log(buf);
-
-
 		var tab = sst.load(buf);
 		
 		assert.equal(tab.get("c"), "3");
@@ -23,5 +20,38 @@ describe('sstable', function() {
 		assert.equal(tab.get("a"), "1");
 		assert.equal(tab.get("d"), undefined);
 	});
+
+	it('works for many values spanning many buckets', function() {
+
+		var obj = {};
+		for(var i = 0; i < 50; i++) {
+			var k = String.fromCharCode('A'.charCodeAt(0) + i);
+
+			var r = Math.floor(15*Math.random());
+			for(var j = 0; j < r; j++) {
+				k += k.charAt(0);
+			}
+
+			var v = i + '';
+			obj[k] = v;
+		}
+
+
+		var buf = sst.build(obj);
+
+		var tab = sst.load(buf);
+
+		for(var k in obj) {
+			if(obj.hasOwnProperty(k)) {
+				assert.equal(tab.get(k), obj[k]);
+			}
+		}
+
+		assert.equal(tab.get('%fsdf34'), undefined);
+		assert.equal(tab.get('12'), undefined);
+		assert.equal(tab.get('5'), undefined);
+		assert.equal(tab.get('z|{'), undefined);
+
+	})
 
 })

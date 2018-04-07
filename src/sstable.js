@@ -28,12 +28,14 @@ class SSTable {
 
 		var view = new DataView(buf);
 
-		var nbins = view.getUint32(0, true);
+		var ver = this._bytes[0];
+
+		var nbins = view.getUint32(1, true);
 
 		
 		this._bins = [];
 
-		var cur = 4;
+		var cur = 5;
 
 		for(var i = 0; i < nbins; i++) {
 
