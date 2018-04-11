@@ -1,4 +1,4 @@
-const sst = require('..');
+const sst = require('../src');
 const assert = require('assert');
 
 describe('sstable', function() {
